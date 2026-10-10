@@ -1,0 +1,15 @@
+{% extends "base.html" %}{% block body %}
+<h2>Welcome {{ session.name }}</h2>
+<h3>Upload Document</h3>
+<form method="post" action="/student/doc/add" enctype="multipart/form-data">
+<input name="title" placeholder="Title" required><input type="file" name="file" required>
+<button>Upload</button></form>
+<h3>My Documents</h3>
+<table><tr><th>Title</th><th>File</th><th>Actions</th></tr>
+{% for d in docs %}<tr><td>{{d.title}}</td><td>{{d.filename}}</td><td>
+<a href="/student/doc/view/{{d.id}}" target="_blank">View</a> |
+<a href="/student/doc/delete/{{d.id}}" onclick="return confirm('Delete?')">Delete</a>
+<form method="post" action="/student/doc/edit/{{d.id}}" enctype="multipart/form-data">
+<input name="title" value="{{d.title}}"><input type="file" name="file"><button>Update</button></form>
+</td></tr>{% endfor %}</table>
+{% endblock %}

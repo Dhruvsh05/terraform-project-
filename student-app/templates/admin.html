@@ -1,0 +1,20 @@
+{% extends "base.html" %}{% block body %}
+<h2>Admin Dashboard</h2>
+<h3>Courses</h3>
+<form method="post" action="/admin/course/add">
+<input name="name" placeholder="Course name" required><input name="duration" placeholder="Duration (e.g. 6 months)">
+<button>Add Course</button></form>
+<table><tr><th>ID</th><th>Name</th><th>Duration</th><th></th></tr>
+{% for c in courses %}<tr><td>{{c.id}}</td><td>{{c.name}}</td><td>{{c.duration}}</td>
+<td><a href="/admin/course/delete/{{c.id}}">Delete</a></td></tr>{% endfor %}</table>
+<h3>Students</h3>
+<form method="post" action="/admin/student/add">
+<input name="name" placeholder="Student name" required><input name="username" placeholder="Username" required>
+<input name="password" placeholder="Password" required>
+<select name="course_id"><option value="">-- Course --</option>
+{% for c in courses %}<option value="{{c.id}}">{{c.name}}</option>{% endfor %}</select>
+<button>Add Student</button></form>
+<table><tr><th>ID</th><th>Name</th><th>Username</th><th>Course</th><th></th></tr>
+{% for s in students %}<tr><td>{{s.id}}</td><td>{{s.name}}</td><td>{{s.username}}</td><td>{{s.course or '-'}}</td>
+<td><a href="/admin/student/delete/{{s.id}}">Delete</a></td></tr>{% endfor %}</table>
+{% endblock %}
